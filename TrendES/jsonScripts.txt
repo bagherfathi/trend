@@ -1,0 +1,102 @@
+how to create fetchednews index with mapping and fields:
+in json addon set url as http://192.168.1.110:9200/fetchednews
+method as PUT
+type as json
+and fill json area with below json
+{
+    "settings" : {
+        "number_of_shards" : 1,
+		"number_of_replicas" : 1
+    },
+    "mappings" : {
+        "properties" : {
+            "id" : { "type" : "keyword", "index" : true , "store" : true },
+			"name" : { "type" : "keyword", "index" : true , "store" : true },
+			"homeurl" : { "type" : "keyword" , "index" : true , "store" : true},
+			"topic" : { "type" : "keyword" , "index" : true , "store" : true},
+			"newsurl" : { "type" : "keyword" , "index" : true , "store" : true},
+			"title" : { "type" : "text" , "index" : true , "store" : true},
+			"description" : { "type" : "text" , "index" : true , "store" : true},
+			"content" : { "type" : "text" , "index" : true , "store" : true},
+			"fetchtime" : { "type" : "date" , "index" : true , "store" : true},
+			"publishtime" : { "type" : "date" , "index" : true , "store" : true},
+			"processed" : { "type" : "boolean" , "index": true , "store" : true},
+			"posite" : { "type" : "boolean" , "index": true , "store" : true},
+			"forfuture" : { "type" : "text" , "index":true , "store" : true}
+        }
+    }
+}
+after above steps, elasticsearch ask you for user name and password, ener username and password, elasticsearch return to you this json response:
+{
+  "acknowledged": true,
+  "shards_acknowledged": true,
+  "index": "fetchednews"
+}
+delete index:
+curl -X DELETE "http://192.168.1.110:9200/fetchednews"
+
+create faulturls index by method put url:http://192.168.1.110:9200/faulturls and below json:
+{
+    "settings" : {
+        "number_of_shards" : 1,
+		"number_of_replicas" : 1
+    },
+    "mappings" : {
+        "properties" : {
+            "url" : { "type" : "keyword", "index" : true , "store" : true }
+        }
+    }
+}
+
+trend query by word search:
+GET fetchednews/_search
+{
+  "query": {
+    "match": {
+      "content": "بیماری"
+    }
+  },
+  "aggregations": {
+    "sample": {
+      "sampler": {
+        "shard_size": 1000
+      },
+      "aggregations": {
+        "keywords": {
+          "significant_text": {
+            "field": "content",
+            "filter_duplicate_text": true
+          }
+        }
+      }
+    }
+  }
+}
+
+trend by time:
+GET fetchednews/_search
+{
+  "query": {
+        "range" : {
+            "fetchtime" : {
+                "gte" : "now-2h/h"
+            }
+        }
+    },
+  "aggregations": {
+    "sample": {
+      "sampler": {
+        "shard_size": 1000
+      },
+      "aggregations": {
+        "keywords": {
+          "significant_text": {
+            "field": "content",
+            "filter_duplicate_text": true
+          }
+        }
+      }
+    }
+  }
+}
+
