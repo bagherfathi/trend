@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <title>جستجوی اخبار</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+
+        .col-75-old {
+            float: left;
+            width: 100%;
+            margin-top: 6px;
+            text-align: center;
+        }
+
+        .row-old:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        @media screen and (max-width: 600px) {
+            .col-25, .col-75, input[type=submit] {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<div class="w3-container w3-center">
+    <a href="" style="font-size:50px ;color:blue" ;>Ravand.ir</a>
+    <br>
+    <a href="" style="font-size:15px ;color:blue" ;>جستجوی اخبار</a>
+    <a href="/trend.jsp" style="font-size:15px ;color:blue" ;>روند اخبار</a>
+    <a href="/hottopics.jsp" style="font-size:15px ;color:blue" ;>کلمات داغ</a>
+    <form action="index.jsp">
+        <div class="row-old">
+            <div class="col-75-old">
+                <input type="text" id="q" name="q" maxlength="2048" placeholder="جستجوی اخبار">
+                <input type="submit" value="جستجو">
+            </div>
+        </div>
+    </form>
+    <div class="row-old">
+        <div class="col-75-old">
+            <a href="mailto:newstrendir@gmail.com">تماس با ما</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
