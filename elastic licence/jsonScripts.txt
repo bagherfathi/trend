@@ -1,0 +1,31 @@
+how to create fetchednews index with mapping and fields:
+in json addon set url as http://192.168.1.110:9200/fetchednews
+method as PUT
+type as json
+and fill json area with below json
+{
+    "settings" : {
+        "number_of_shards" : 1,
+		"number_of_replicas" : 1
+    },
+    "mappings" : {
+        "properties" : {
+            "id" : { "type" : "string", "index" : true }
+			"name" : { "type" : "text", "index" :true }
+			"homeurl" : { "type" : "text" , "index":true}
+			"topic" : { "type" : "text" , "index":true}
+			"newsurl" : { "type" : "text" , "index":true}
+			"title" : { "type" : "text" , "index":true}
+			"description" : { "type" : "text" , "index":true}
+			"content" : { "type" : "text" , "index":true}
+			"fetchtime" : { "type" : "date" , "index":true}
+			"processed" : { "type" : "boolean" , "index":true}
+        }
+    }
+}
+after above steps, elasticsearch ask you for user name and password, ener username and password, elasticsearch return to you this json response:
+{
+  "acknowledged": true,
+  "shards_acknowledged": true,
+  "index": "fetchednews"
+}

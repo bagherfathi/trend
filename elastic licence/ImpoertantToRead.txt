@@ -1,0 +1,6 @@
+1 download elasticsearch and kibana 7.6.0 deb
+2 install both by dpkg -i
+3 x-pack-core-7.6.0.jar is ready for 2050 licence, copy it to /usr/share/elasticsearch/modules/x-pack-core/x-pack-core-7.6.0.jar
+4 copy licence.json to this folder
+5 run curl -XPUT -u elastic 'http://87.247.176.67:9200/_xpack/license' -H "Content-Type: application/json" -d @license.json
+6 finish

@@ -1,0 +1,7 @@
+create index fetchednews:
+
+create mapping:
+
+create types:
+
+insert index:

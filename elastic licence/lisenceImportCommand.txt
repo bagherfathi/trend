@@ -1,0 +1,1 @@
+curl -XPUT -u elastic 'http://192.168.1.8:9200/_xpack/license' -H "Content-Type: application/json" -d @license.json
