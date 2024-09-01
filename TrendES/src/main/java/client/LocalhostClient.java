@@ -18,7 +18,7 @@ public class LocalhostClient {
         credentialsProvider.setCredentials(AuthScope.ANY,
                 new UsernamePasswordCredentials("elastic", "tbontb"));
         return new RestHighLevelClient(RestClient.builder(
-                new HttpHost("192.168.1.110", 9200, "http"))
+                new HttpHost("127.0.0.1", 9200, "http"))
                 .setHttpClientConfigCallback(new HttpClientConfigCallback() {
                     @Override
                     public HttpAsyncClientBuilder customizeHttpClient(
