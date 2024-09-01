@@ -17,7 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import document.IndexApi;
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.core.CountResponse;
 
 import document.GetCountApi;
@@ -38,7 +40,7 @@ public class fetchTask implements Runnable {
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	public void run() {
         try {
-//            IndexApi ia = new IndexApi();
+            IndexApi ia = new IndexApi();
             Map<String, Object> doc = new HashMap<String, Object>();
             Normalizer normal = new Normalizer();
             Map<String, String> agencyProps = null;
@@ -55,10 +57,10 @@ public class fetchTask implements Runnable {
             for (String s : linklist) {
                 try {
                     Thread.sleep(500);
-                    CountResponse countResponse=gca.getCount("fetchednews", "id", s.trim());
-                    long count=countResponse.getCount();
-                    LOGGER.info("job " + agencyName +":count of similar news: " + count);
-                    if (count== 0) {
+                    CountResponse countResponse = gca.getCount("fetchednews", "id", s.trim());
+                    long count = countResponse.getCount();
+                    LOGGER.info("job " + agencyName + ":count of similar news: " + count);
+                    if (count == 0) {
                         ReturnXpathText rxt = new ReturnXpathText(s.trim());
                         doc.put("id", s.trim());
                         doc.put("name", agencyProps.get(agencyName + ".name"));
@@ -67,10 +69,11 @@ public class fetchTask implements Runnable {
                         doc.put("posite", agencyProps.get(agencyName + ".posite"));
                         doc.put("homeurl", agencyProps.get(agencyName + ".firstpage"));
                         doc.put("newsurl", s.trim());
-                        doc.put("title", normal.run(rxt.textOfXpath(agencyProps.get(agencyName + ".title"))).trim());
-                        doc.put("description", normal.run(rxt.textOfXpath(agencyProps.get(agencyName + ".description"))).trim());
-                        String content=normal.run(rxt.textOfXpath(agencyProps.get(agencyName + ".content"))).trim();
-;                        if(content.length()>200)
+                        doc.put("title", normal.run(rxt.textOfXpath(agencyProps.get(agencyName + ".title"), "title")).trim());
+                        doc.put("description", normal.run(rxt.textOfXpath(agencyProps.get(agencyName + ".description"), "description")).trim());
+                        String content = normal.run(rxt.textOfXpath(agencyProps.get(agencyName + ".content"), "content")).trim();
+                        ;
+                        if (content.length() > 200)
                             doc.put("content", content);
                         else
                             doc.put("content", " ");
@@ -80,33 +83,34 @@ public class fetchTask implements Runnable {
 //                        writeUTFToFile("time text: " + rxt.textOfXpath(agencyProps.get(agencyName + ".publisheddatetime")) + "\n");
                         TextToTime ttt = new TextToTime();
                         String pt;
-                        LOGGER.info("seperated:  " + agencyProps.getOrDefault(agencyName + ".seperateddatetime","false"));
-                        LOGGER.info(Boolean.parseBoolean(agencyProps.getOrDefault(agencyName + ".seperateddatetime","false")));
-                        if(Boolean.parseBoolean(agencyProps.getOrDefault(agencyName + ".seperateddatetime","false"))==false)
-                             pt = ttt.returnMilliseconds(agencyName, rxt.textOfXpath(agencyProps.get(agencyName + ".publisheddatetime"))).trim();
+                        LOGGER.info("seperated:  " + agencyProps.getOrDefault(agencyName + ".seperateddatetime", "false"));
+                        LOGGER.info(Boolean.parseBoolean(agencyProps.getOrDefault(agencyName + ".seperateddatetime", "false")));
+                        if (Boolean.parseBoolean(agencyProps.getOrDefault(agencyName + ".seperateddatetime", "false")) == false)
+                            pt = ttt.returnMilliseconds(agencyName, rxt.textOfXpath(agencyProps.get(agencyName + ".publisheddatetime"), "publisheddatetime")).trim();
                         else
-                             pt = ttt.returnMilliseconds(agencyName, rxt.textOfXpath(agencyProps.get(agencyName + ".publisheddate").trim()) +"-" + rxt.textOfXpath(agencyProps.get(agencyName + ".publishedtime").trim()));
+                            pt = ttt.returnMilliseconds(agencyName, rxt.textOfXpath(agencyProps.get(agencyName + ".publisheddate").trim(), "publisheddate") + "-" + rxt.textOfXpath(agencyProps.get(agencyName + ".publishedtime").trim(), "publishedtime"));
                         LOGGER.info("news date time: " + pt);
 //                        writeUTFToFile("publishdatetime: " + pt + "\n");
                         if (!pt.equalsIgnoreCase("-1")) {
 //                            LOGGER.info("original date detected: " + pt + " newsurl: " + s + " extracted date: "  + rxt.textOfXpath(agencyProps.get(agencyName + ".publisheddatetime")).trim());
                             doc.put("publishtime", pt);
                         } else {
-                            LOGGER.info("original date not detected: " + pt + " newsurl: " + s + " extracted date: " );
+                            LOGGER.info("original date not detected: " + pt + " newsurl: " + s + " extracted date: ");
                             doc.put("publishtime", Long.toString(System.currentTimeMillis()));
                         }
 
                         doc.put("fetchtime", Long.toString(System.currentTimeMillis()));
                         doc.put("processed", "false");
-//                        IndexResponse ir = ia.indexSync("fetchednews", doc);
+                        IndexResponse ir;
+                        ia.indexAsync("fetchednews", doc);
                         doc.clear();
                     }
                 } catch (Exception e) {
                     doc.clear();
-                    Map<String,Object> fu=new HashMap<String,Object>();
-                   fu.put("url", s);
-//                   IndexResponse ir;
-//                    ir = ia.indexSync("faulturls", fu);
+                    Map<String, Object> fu = new HashMap<String, Object>();
+                    fu.put("url", s);
+                   IndexResponse ir;
+                    ia.indexAsync("faulturls", fu);
                     fu.clear();
                     LOGGER.info("link failed");
                     LOGGER.error(s);

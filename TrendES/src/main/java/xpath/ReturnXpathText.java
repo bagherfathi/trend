@@ -19,6 +19,8 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import static java.lang.System.exit;
+
 /**
  *
  * @author baghe
@@ -66,20 +68,21 @@ private HtmlPage page;
 //                String itemUrl = itemAnchor.getHrefAttribute(); // It is possible that an item doesn't have any price
 //                String itemPrice = spanPrice == null ? "0.0" : spanPrice.asText();
 //
-            LOGGER.info(rxt.textOfXpath("//*[@id=\"item\"]/div[2]/div[2]/h1/a"));
-            LOGGER.info(rxt.textOfXpath("//*[@id=\"item\"]/div[2]/div[2]/h1/a"));
-            LOGGER.info(rxt.textOfXpath("//*[@id=\"item\"]/p"));
-            LOGGER.info(rxt.textOfXpath("//*[@id=\"item\"]/div[3]/div"));
+            LOGGER.info(rxt.textOfXpath("//*[@id=\"item\"]/div[2]/div[2]/h1/a","main"));
+            LOGGER.info(rxt.textOfXpath("//*[@id=\"item\"]/div[2]/div[2]/h1/a","main"));
+            LOGGER.info(rxt.textOfXpath("//*[@id=\"item\"]/p","main"));
+            LOGGER.info(rxt.textOfXpath("//*[@id=\"item\"]/div[3]/div","main"));
             client.close();
             
         }
     }
 
-    public String textOfXpath(String xpath) throws IOException {
-        LOGGER.info(xpath);
+    public String textOfXpath(String xpath,String name) throws IOException {
         List<HtmlElement> items;
-        LOGGER.info("xpath: " + xpath);
+        LOGGER.info("Name:"+ name +" xpath: " + xpath);
         items = page.getByXPath(xpath);
+        if(items.size()==0)
+            return null;
         LOGGER.info("size of items: " + items.size());
         LOGGER.info("pure html: "+ items.get(0).asXml());
          LOGGER.info("pure text: "+ Jsoup.clean(items.get(0).asXml(),Whitelist.none()));

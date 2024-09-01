@@ -501,7 +501,7 @@ public long tarafdari(String textDate) throws IOException {
 
     public long datetimeextractorforcopy(String textDate) throws IOException {
         ReturnXpathText rxt = new ReturnXpathText("https://jamejamonline.ir/fa/news/1268389/%DA%86%D8%A7%D9%87-%D8%B3%D9%86%DA%AF%DB%8C-%D9%85%D8%AA%D8%B9%D9%84%D9%82-%D8%A8%D9%87-%D8%AF%D9%88%D8%B1%D9%87-%D8%B3%D8%A7%D8%B3%D8%A7%D9%86%DB%8C-%D8%AF%D8%B1-%D8%A7%D8%B7%D8%B1%D8%A7%D9%81-%D8%AA%D9%BE%D9%87-%D8%A7%D8%B4%D8%B1%D9%81-%D8%A7%D8%B5%D9%81%D9%87%D8%A7%D9%86-%DA%A9%D8%B4%D9%81-%D8%B4%D8%AF");
-        String p = rxt.textOfXpath("//*[@id=\"news\"]/section[2]/div/div[1]/article/section[1]/span[3]");
+        String p = rxt.textOfXpath("//*[@id=\"news\"]/section[2]/div/div[1]/article/section[1]/span[3]","publishedtime");
         LOGGER.info(p);
         printcharbychar(p);
         String s = ConvertDigitsToLatin(p);

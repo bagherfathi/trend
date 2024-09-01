@@ -144,12 +144,12 @@ public class config {
             String samplepage = agencyName[i] + ".samplepage";
             ReturnXpathText xp = new ReturnXpathText(props.getProperty(samplepage));
             if(Boolean.parseBoolean(props.getProperty(agencyName[i] + ".seperateddatetime","false"))==false)
-                            LOGGER.info("publisheddatetime: "  + xp.textOfXpath(props.get(agencyName[i] + ".publisheddatetime").toString()).trim());
+                            LOGGER.info("publisheddatetime: "  + xp.textOfXpath(props.get(agencyName[i] + ".publisheddatetime").toString(),"publisheddatetime").trim());
             else
-                             LOGGER.info("publisheddatetime: "  + xp.textOfXpath(props.getProperty(agencyName[i] + ".publisheddate")) +"-" + xp.textOfXpath(props.getProperty(agencyName[i] + ".publishedtime")));
-            LOGGER.info(title + " : " + xp.textOfXpath(props.getProperty(title)));
-            LOGGER.info(description + " : " + xp.textOfXpath(props.getProperty(description)));
-            LOGGER.info(content + " : " + xp.textOfXpath(props.getProperty(content)));
+                             LOGGER.info("publisheddatetime: "  + xp.textOfXpath(props.getProperty(agencyName[i] + ".publisheddate"),"publisheddate") +"-" + xp.textOfXpath(props.getProperty(agencyName[i] + ".publishedtime"),"publisheddate"));
+            LOGGER.info(title + " : " + xp.textOfXpath(props.getProperty(title),"title"));
+            LOGGER.info(description + " : " + xp.textOfXpath(props.getProperty(description),"description"));
+            LOGGER.info(content + " : " + xp.textOfXpath(props.getProperty(content),"content"));
 //            TextToTime ttt=new TextToTime();
 //            writeUTFToFile("dt" + " : " + xp.textOfXpath(props.getProperty(dt)));
 //            writeUTFToFile("\n");
@@ -163,7 +163,7 @@ public class config {
 //            writeUTFToFile("\n");
 //            writeUTFToFile("description" + " : " + xp.textOfXpath(props.getProperty(description)));
             writeUTFToFile("\n");
-            writeUTFToFile("content" + " : " + xp.textOfXpath(props.getProperty(content)));
+            writeUTFToFile("content" + " : " + xp.textOfXpath(props.getProperty(content),"content"));
             writeUTFToFile("\n");
             LOGGER.info(agencyName[i] + " ended!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             LOGGER.info("----------------------------------------------------------------------------------------------------------------------");
