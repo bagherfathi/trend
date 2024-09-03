@@ -133,15 +133,15 @@
     <form action="index.jsp">
         <div class="row-old">
             <div class="col-75-old">
-                <a href="https://ravand.rwork.ir" style="font-size:25px ;color:blue" ;>ravand.rwork.ir</a>
+                <a href="http://87.247.176.67:8080" style="font-size:25px ;color:blue" ;>87.247.176.67:8080</a>
                 <br>
                 <b style="font-size:15px ;color:red">(آزمایشی)</b>
                 <br>
-                <a href="https://ravand.rwork.ir" style="font-size:15px ;color:blue" ;><b>جستجوی اخبار</b></a>
+                <a href="http://87.247.176.67:8080" style="font-size:15px ;color:blue" ;><b>جستجوی اخبار</b></a>
                 <b>&emsp;</b>
-                <a href="https://ravand.rwork.ir/trend.jsp" style="font-size:15px ;color:blue" ;><b>روند اخبار</b></a>
+                <a href="http://87.247.176.67:8080/trend.jsp" style="font-size:15px ;color:blue" ;><b>روند اخبار</b></a>
                 <b>&emsp;</b>
-                <a href="https://ravand.rwork.ir/hottopics.jsp" style="font-size:15px ;color:blue" ;><b>کلمات داغ</b></a>
+                <a href="http://87.247.176.67:8080/hottopics.jsp" style="font-size:15px ;color:blue" ;><b>کلمات داغ</b></a>
             </div>
         </div>
         <div class="row-old">
@@ -282,7 +282,7 @@
 <div class="row-old">
     <div class="col-75-old">
         <a href="https://twitter.com/RworkIr" class="fa fa-twitter" style="font-size:36px;color:blue"></a>
-        <a href="https://www.instagram.com/ravand.rwork.ir/" class="fa fa-instagram" style="font-size:36px;color:red"></a>
+        <a href="https://www.instagram.com/87.247.176.67:8080/" class="fa fa-instagram" style="font-size:36px;color:red"></a>
         <a href="mailto:newstrendir@gmail.com" class="fa fa-envelope" style="font-size:36px;color:green"></a>
     </div>
 </div>
