@@ -1,0 +1,5 @@
+install:
+pip install libretranslate
+
+run:
+libretranslate --host=127.0.0.1 --update-models
