@@ -20,7 +20,7 @@ import java.nio.file.Path;
 import org.apache.lucene.analysis.TokenStream;
 import org.codelibs.analysis.en.ReloadableKeywordMarkerFilter;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.core.TimeValue;
+import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;
 import org.elasticsearch.index.analysis.AbstractTokenFilterFactory;
@@ -33,7 +33,7 @@ public class ReloadableKeywordMarkerFilterFactory extends AbstractTokenFilterFac
 
     public ReloadableKeywordMarkerFilterFactory(final IndexSettings indexSettings, final Environment environment, final String name,
             final Settings settings) {
-        super(name, settings);
+        super(indexSettings,name, settings);
 
         final String path = settings.get("keywords_path");
         if (path != null) {

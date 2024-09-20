@@ -26,7 +26,7 @@ public class KuromojiNumberFilterFactory extends AbstractTokenFilterFactory {
 
     public KuromojiNumberFilterFactory(final IndexSettings indexSettings, final Environment environment, final String name,
             final Settings settings) {
-        super(name, settings);
+        super(indexSettings,name, settings);
     }
 
     @Override

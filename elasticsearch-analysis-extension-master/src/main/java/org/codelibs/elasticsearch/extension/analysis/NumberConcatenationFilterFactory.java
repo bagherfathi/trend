@@ -37,7 +37,7 @@ public class NumberConcatenationFilterFactory extends AbstractTokenFilterFactory
 
     public NumberConcatenationFilterFactory(final IndexSettings indexSettings, final Environment environment, final String name,
             final Settings settings) {
-        super(name, settings);
+        super(indexSettings,name, settings);
 
         final String suffixWordsPath = settings.get("suffix_words_path");
 

@@ -20,7 +20,7 @@ import java.nio.file.Path;
 import org.apache.lucene.analysis.TokenStream;
 import org.codelibs.analysis.en.ReloadableStopFilter;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.core.TimeValue;
+import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;
 import org.elasticsearch.index.analysis.AbstractTokenFilterFactory;
@@ -35,7 +35,7 @@ public class ReloadableStopFilterFactory extends AbstractTokenFilterFactory {
 
     public ReloadableStopFilterFactory(final IndexSettings indexSettings, final Environment environment, final String name,
             final Settings settings) {
-        super(name, settings);
+        super(indexSettings,name, settings);
 
         final String path = settings.get("stopwords_path");
         if (path != null) {

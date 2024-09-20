@@ -35,7 +35,7 @@ import org.apache.lucene.analysis.synonym.SolrSynonymParser;
 import org.apache.lucene.analysis.synonym.SynonymMap;
 import org.apache.lucene.analysis.synonym.WordnetSynonymParser;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.core.TimeValue;
+import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.analysis.Analysis;
 
@@ -171,7 +171,9 @@ public class SynonymLoader {
                 if (filePath == null) {
                     reader = new StringReader("");
                 }else {
-                    reader = Analysis.getReaderFromFile(env, filePath, "synonyms_path");
+//                    reader = Analysis.getReaderFromFile(env, filePath, "synonyms_path");
+                    reader = Analysis.getReaderFromFile(env, settings, "synonyms_path");
+
                 }
             }
         } else {

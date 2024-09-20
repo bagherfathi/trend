@@ -32,7 +32,7 @@ public class PatternConcatenationFilterFactory extends AbstractTokenFilterFactor
 
     public PatternConcatenationFilterFactory(final IndexSettings indexSettings, final Environment environment, final String name,
             final Settings settings) {
-        super(name, settings);
+        super(indexSettings,name, settings);
 
         final String pattern1Str = settings.get("pattern1");
         final String pattern2Str = settings.get("pattern2", ".*");

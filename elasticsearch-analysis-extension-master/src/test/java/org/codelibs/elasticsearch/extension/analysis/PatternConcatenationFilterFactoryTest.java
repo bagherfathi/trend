@@ -27,7 +27,7 @@ import org.codelibs.elasticsearch.runner.net.EcrCurl;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.settings.Settings.Builder;
 import org.elasticsearch.node.Node;
-import org.elasticsearch.xcontent.XContentType;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

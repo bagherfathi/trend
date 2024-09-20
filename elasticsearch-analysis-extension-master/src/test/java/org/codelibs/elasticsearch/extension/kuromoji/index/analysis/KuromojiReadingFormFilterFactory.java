@@ -28,7 +28,7 @@ public class KuromojiReadingFormFilterFactory extends AbstractTokenFilterFactory
 
     public KuromojiReadingFormFilterFactory(final IndexSettings indexSettings, final Environment environment, final String name,
             final Settings settings) {
-        super(name, settings);
+        super(indexSettings,name, settings);
         useRomaji = settings.getAsBoolean("use_romaji", false);
     }
 

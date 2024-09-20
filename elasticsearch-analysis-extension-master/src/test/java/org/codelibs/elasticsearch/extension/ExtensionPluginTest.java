@@ -38,9 +38,10 @@ import org.elasticsearch.common.settings.Settings.Builder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.node.Node;
 import org.elasticsearch.rest.RestStatus;
-import org.elasticsearch.xcontent.XContentBuilder;
-import org.elasticsearch.xcontent.XContentFactory;
-import org.elasticsearch.xcontent.XContentType;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequestBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -137,9 +138,10 @@ public class ExtensionPluginTest {
 
                 .endObject()//
                 .endObject();
-        runner.createMapping(index, mappingBuilder);
+        runner.build();
+        runner.createMapping(index, "type",mappingBuilder);
 
-        final DocWriteResponse indexResponse1 = runner.insert(index, "1", "{\"msg1\":\"東京スカイツリー\", \"id\":\"1\"}");
+        final DocWriteResponse indexResponse1 = runner.insert(index,"type", "1", "{\"msg1\":\"東京スカイツリー\", \"id\":\"1\"}");
         assertEquals(RestStatus.CREATED, indexResponse1.status());
         runner.refresh();
 
@@ -205,9 +207,9 @@ public class ExtensionPluginTest {
 
                 .endObject()//
                 .endObject();
-        runner.createMapping(index, mappingBuilder);
+        runner.createMapping(index, "type",mappingBuilder);
 
-        final DocWriteResponse indexResponse1 = runner.insert(index, "1", "{\"msg1\":\"時々\", \"msg2\":\"時々\", \"id\":\"1\"}");
+        final DocWriteResponse indexResponse1 = runner.insert(index, "type","1", "{\"msg1\":\"時々\", \"msg2\":\"時々\", \"id\":\"1\"}");
         assertEquals(RestStatus.CREATED, indexResponse1.status());
         runner.refresh();
 
@@ -269,9 +271,9 @@ public class ExtensionPluginTest {
 
                 .endObject()//
                 .endObject();
-        runner.createMapping(index, mappingBuilder);
+        runner.createMapping(index, "type",mappingBuilder);
 
-        final DocWriteResponse indexResponse1 = runner.insert(index, "1", "{\"msg1\":\"あ‐\", \"msg2\":\"あ‐\", \"id\":\"1\"}");
+        final DocWriteResponse indexResponse1 = runner.insert(index,"type" ,"1", "{\"msg1\":\"あ‐\", \"msg2\":\"あ‐\", \"id\":\"1\"}");
         assertEquals(RestStatus.CREATED, indexResponse1.status());
         runner.refresh();
 
@@ -333,9 +335,9 @@ public class ExtensionPluginTest {
 
                 .endObject()//
                 .endObject();
-        runner.createMapping(index, mappingBuilder);
+        runner.createMapping(index, "type",mappingBuilder);
 
-        final DocWriteResponse indexResponse1 = runner.insert(index, "1", "{\"msg1\":\"十二時間\", \"msg2\":\"十二時間\", \"id\":\"1\"}");
+        final DocWriteResponse indexResponse1 = runner.insert(index,"type", "1", "{\"msg1\":\"十二時間\", \"msg2\":\"十二時間\", \"id\":\"1\"}");
         assertEquals(RestStatus.CREATED, indexResponse1.status());
         runner.refresh();
 
