@@ -1,5 +1,6 @@
 package org.elasticsearch.plugin.analysis.farsi;
 
+import org.elasticsearch.farsi.FarsiWordTokenizerFilter;
 import org.apache.lucene.analysis.Analyzer;
 import org.elasticsearch.index.analysis.*;
 import org.elasticsearch.indices.analysis.AnalysisModule;
@@ -17,7 +18,7 @@ public class FarsiPlugin extends Plugin implements AnalysisPlugin {
     @Override
     public Map<String, AnalysisModule.AnalysisProvider<TokenFilterFactory>> getTokenFilters() {
         Map<String, AnalysisModule.AnalysisProvider<TokenFilterFactory>> extra = new HashMap<>();
-        extra.put("farsi_token", FarsiTokenFilterFactory::new);
+        extra.put("farsi_token", FarsiWordTokenizerFilter::new);
         return extra;
     }
 

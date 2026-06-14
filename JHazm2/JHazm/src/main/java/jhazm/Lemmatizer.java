@@ -50,6 +50,7 @@ public class Lemmatizer {
             throws IOException {
         welcome("4");
         this.words = new HashSet<>();
+        System.out.println("path of words.dat: " + Paths.get(wordsFile));
         for (String line : Files.readAllLines(Paths.get(wordsFile), StandardCharsets.UTF_8))
             this.words.add(line.trim());
 

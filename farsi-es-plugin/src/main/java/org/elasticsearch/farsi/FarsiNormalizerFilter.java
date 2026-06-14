@@ -6,6 +6,7 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.KeywordAttribute;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class FarsiNormalizerFilter extends TokenFilter {
 
@@ -19,9 +20,9 @@ public class FarsiNormalizerFilter extends TokenFilter {
 	@Override
 	public boolean incrementToken() throws IOException {
 		if (input.incrementToken()) {
-			if (!keywordAttr.isKeyword()) {
-				termAtt.setEmpty().append(FarsiNormalizer.normalize(termAtt.toString()));
-			}
+//			String s=FarsiNormalizer.normalize(termAtt.buffer().toString());
+//			termAtt.setLength(s.length());
+			termAtt.setEmpty().append(FarsiNormalizer.normalize(Arrays.toString(termAtt.buffer())));
 			return true;
 		} else {
 			return false;
